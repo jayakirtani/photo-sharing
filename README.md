@@ -3,8 +3,8 @@ A Public Photo Sharing Web Application for Nature Photographers
 
 # To Run
 
-1. Install NPM (Node Package Manager)
-2. Install Node (version - 6.10.2)
+1. Install Node (version - 6.10 LTS)
+2. Update NPM version. Execute Command ```npm install npm@latest -g```
 3. Clone the photo-sharing repo
 4. Go to folder ```/photo-sharing```
 5. Run ```npm install``` to install the project dependencies
