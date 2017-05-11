@@ -65,6 +65,8 @@ flex-wrap: wrap;
     height: 200px;
 }*/
 
+
+/*
 @media (max-width: 4000px) {
     .thumbnail {
         height: 20vw;
@@ -85,7 +87,7 @@ flex-wrap: wrap;
 
 .myimage {
     height: 90%;
-    /*    max-height: 200px;*/
+        max-height: 200px;
     border-bottom: 1px solid grey;
 }
 
@@ -105,9 +107,41 @@ flex-wrap: wrap;
 .thumbnail .mybackground {
     background-color: azure;
 }
+*/
 
 
 /*
 #imgcollection img {
     object-fit: contain;
 }*/
+
+.grid {
+    background: white;
+}
+
+
+/*
+ clear fix .grid:after {
+     content: '';
+     display: block;
+     clear: both;
+ }
+*/
+
+
+/* ---- .grid-item ---- */
+
+.grid-sizer,
+.grid-item {
+    width: 25%;
+}
+
+.grid-item {
+    border: 2px solid black;
+    float: left;
+}
+
+.grid-item img {
+    display: block;
+    max-width: 100%;
+}
