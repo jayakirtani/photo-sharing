@@ -1,6 +1,6 @@
 .logo {
     display: flex;
-    background-image: url(../evening.jpg);
+    background-image: url(../img/evening.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     height: 200px;
@@ -51,63 +51,38 @@
     color: white;
 }
 
-.row.limit {
-    /*
-    display: flex;
-flex-wrap: wrap;
-*/
-    /*    max-height: 50vw;*/
+.row.limit {}
+
+.grid {
+    background: white;
 }
 
 
 /*
-.thumbnail {
-    height: 200px;
-}*/
+ clear fix .grid:after {
+     content: '';
+     display: block;
+     clear: both;
+ }*/
 
-@media (max-width: 4000px) {
-    .thumbnail {
-        height: 20vw;
-    }
+
+/* ---- .grid-item ---- */
+
+.grid-sizer,
+.grid-item {
+    width: 33.33%;
 }
 
-@media (max-width: 991px) {
-    .thumbnail {
-        height: 25vw;
-    }
+.grid-item {
+    border: 4px solid white;
+    float: left;
 }
 
-@media (max-width: 575px) {
-    .thumbnail {
-        height: 90vw;
-    }
+.grid-item img {
+    display: inline-block;
+    max-width: 100%;
 }
 
-.myimage {
-    height: 90%;
-    /*    max-height: 200px;*/
+/*#imageinfo {
     border-bottom: 1px solid grey;
-}
-
-.img-responsive {
-    height: 100%;
-    width: 100%;
-    object-fit: contain;
-}
-
-.mybackground {
-    background-image: url(../img/tower.jpg);
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
-}
-
-.thumbnail .mybackground {
-    background-color: azure;
-}
-
-
-/*
-#imgcollection img {
-    object-fit: contain;
 }*/
