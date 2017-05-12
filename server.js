@@ -5,6 +5,10 @@ var app = express();
 app.set('port', config.SERVER_PORT);
 
 app.use(express.static(__dirname + '/public/html'));
+app.use(express.static(__dirname + '/public/css'));
+app.use(express.static(__dirname + '/public/js'));
+app.use(express.static(__dirname + '/public/img'));
+
 
 app.get('/', function (req, res) {
     res.sendFile('index.html');

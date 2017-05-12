@@ -1,6 +1,6 @@
 .logo {
     display: flex;
-    background-image: url(../img/evening.jpg);
+    background-image: url(../evening.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     height: 200px;
