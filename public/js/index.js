@@ -16,14 +16,14 @@ $(document).ready(function () {
     });
 
     fetchImages().then((imageList) => {
-        for (var i = 1; i < imageList.length; i++) {
-            console.log(JSON.stringify(imageList[i]));
-            console.log(i + "--" + imageList[i].url);
-            var $griditem = $(`<div class="grid-item">
-                <img src="${imageList[i].url}" />
+        for (var key in imageList) {
+                var imagedata = imageList[key];
+                console.log(imagedata);
+                var $griditem = $(`<div class="grid-item" id="${key}">
+                <img src="${imagedata.url}" />
                 <div id="imageinfo">
-                <span>${imageList[i].totalcomments} Comments</span>
-                <span>${imageList[i].likes} Likes</span>
+                <span>${imagedata.totalcomments} Comments</span>
+                <span>${imagedata.likes} Likes</span>
                 </div>
             </div>`)
             console.log($griditem);
