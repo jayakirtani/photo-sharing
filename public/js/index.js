@@ -1,7 +1,5 @@
 $(document).ready(function () {
-    //Connect to Firebase Database
-    connectDB();
-
+   
     window.onscroll = function () {
         highlightNav()
     };
