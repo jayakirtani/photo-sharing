@@ -28,15 +28,15 @@ $('#hello').replaceWith("<h2>Hello "+user.displayName +"</h2>")
         for (var key in imageList) {
 			
                 var userimagedata = imageList[key].image;
-				console.log(userimagedata);
+                var likes = imageList[key].likes;
+                var comments = imageList[key].totalcomments;
                 var $griditem = $(`<div class="grid-item" id="${key}">
                 <img src="${userimagedata}" />
                 <div id="userimageinfo">
-                <span>${userimagedata.totalcomments} Comments</span>
-                <span>${userimagedata.likes} Likes</span>
+                <span>${comments} Comments</span>
+                <span>${likes} Likes</span>
                 </div>
             </div>`)
-            console.log($griditem);
             // Add images to the image grid
             $('.grid').prepend($griditem).isotope('prepended', $griditem);
         }
@@ -86,9 +86,30 @@ function handleFileSelect(evt) {
 
         var database = firebase.database();
         var uid = firebase.auth().currentUser.uid;
+        var ititialComments = 0;
+        var initialLikes = 0;
         firebase.database().ref('users/' + uid+'/images/').push({
             image: url,
+            totalcomments:ititialComments,
+            likes:initialLikes
         });
+                var $griditem = $(`<div class="grid-item" id="${uid}">
+                <img src="${url}" />
+                <div id="userimageinfo">
+                <span>${ititialComments} Comments</span>
+                <span>${initialLikes} Likes</span>
+                </div>
+            </div>`)
+            console.log($griditem);
+            // Add images to the image grid
+            $('.grid').prepend($griditem).isotope('prepended', $griditem);
+
+            $('.grid').imagesLoaded(function () {
+                        console.log("all images loaded")
+                        $('.grid').isotope('layout');
+              });
+
+
         console.log(uid);
 
         // [END_EXCLUDE]

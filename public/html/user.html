@@ -7,16 +7,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
 
     <!-- Bootstrap theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+        crossorigin="anonymous">
 
-    <!-- Custom Stylesheet -->
+    <!--Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Google Fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet" />
     <link rel="stylesheet" href="../css/user.css" />
 
     <title>User profile</title>
-    <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+    
 
 </head>
 <body>
@@ -30,8 +36,11 @@
                 <li id="name" class="pull-left"><a href="#"><b>natureShare</b></a></li>
                 <li class="active"><a href="#">Home</a></li>
                 <li><a href="#one">About</a></li>
-                <li id="loginButton" class="pull-right"><button id="btnSignUp" class="btn btn-secondary">Sign In</button></li>
-                <li id="logoutButton" class="pull-right"><button id="btnLogout" class="btn btn-action hide">Log out</button></li>
+                <li  class="pull-right"><button id="btnSignUp" class="btn btn-secondary">Sign In</button></li>
+                <li id="logoutButton" class="pull-right">
+                    <!--<button id="btnLogout" class="btn btn-action hide">Log out</button>-->
+                    <a id="btnLogout" href="#">Logout</a>
+                </li>
             </ul>
         </nav>
 
@@ -46,7 +55,6 @@
                 <div><input type="file" name="image_file" id="image_file" /></div>
                 <span id="linkbox"></span>
             </div>
-        </div>
     </div>
 </div>
 
@@ -61,7 +69,8 @@
  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Latest compiled and minified Bootstrap JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
     <!--<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>-->
     <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
 
@@ -69,6 +78,7 @@
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
     <!--<script src="../js/packery-mode.pkgd.min.js"></script>-->
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-endless-scroll/1.8.0/js/jquery.endless-scroll.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
     <script src="../js/app.js"></script>
     <script src="../js/userdb.js"></script>
