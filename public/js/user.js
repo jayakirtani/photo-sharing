@@ -11,8 +11,6 @@ auth.onAuthStateChanged(function(user) {
     document.getElementById('image_file').disabled = false;
 $('#hello').replaceWith("<h2>Hello "+user.displayName +"</h2>")
  
-   
-
 // Arrange Images using masonry layout grid
     $('.grid').isotope({
         itemSelector: '.grid-item',
@@ -21,12 +19,8 @@ $('#hello').replaceWith("<h2>Hello "+user.displayName +"</h2>")
         percentPosition: true,
         columnWidth: '.grid-sizer',
     });
-
     retrieveImages().then((imageList) => {
-		console.log("inside ");
-		
         for (var key in imageList) {
-			
                 var userimagedata = imageList[key].image;
                 var likes = imageList[key].likes;
                 var comments = imageList[key].totalcomments;
@@ -54,8 +48,6 @@ $('#hello').replaceWith("<h2>Hello "+user.displayName +"</h2>")
   }
 });
 
-
-
 });
 
 function highlightNav() {
@@ -82,8 +74,6 @@ function handleFileSelect(evt) {
         console.log('File available at', url);
         // [START_EXCLUDE]
         document.getElementById('linkbox').innerHTML = '<a href="' +  url + '">Click For File</a>';
-
-
         var database = firebase.database();
         var uid = firebase.auth().currentUser.uid;
         var ititialComments = 0;
@@ -92,14 +82,14 @@ function handleFileSelect(evt) {
             url: url,
             totalcomments:ititialComments,
             likes:initialLikes,
-            timestamp:snapshot.metadata.timeCreated
+            timestamp:-Date.now()
         });
 
         firebase.database().ref('/images/').push({
             url: url,
             totalcomments:ititialComments,
             likes:initialLikes,
-            timestamp:snapshot.metadata.timeCreated
+            timestamp:-Date.now()
         });
                 var $griditem = $(`<div class="grid-item" id="${uid}">
                 <img src="${url}" />
