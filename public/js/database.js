@@ -1,4 +1,4 @@
-var database;
+
 var lastImageTimestamp = 0;
 
 // Returns a Promise which whne resolved returns a JSON with all images
@@ -38,7 +38,7 @@ function fetchNextImageBatch(batchsize) {
             console.log("Next Batch");
             var orderedData=[];
             imageList.forEach(function (child) {
-                //console.log(child.val()) // NOW THE CHILDREN PRINT IN ORDER
+                //console.log(child.val()) 
                 var key = child.key;
                 var data = child.val();
                 orderedData.push({key : data});
@@ -49,21 +49,3 @@ function fetchNextImageBatch(batchsize) {
         });
     });
 }
-
-// function connectDB() {
-//     // Initialize Firebase
-//     var config = {
-//         apiKey: "AIzaSyBiyoO98d-j8nRV3Bmh1ZAdI-hsLjpif8o",
-//         authDomain: "photosharing-c37de.firebaseapp.com",
-//         databaseURL: "https://photosharing-c37de.firebaseio.com",
-//         projectId: "photosharing-c37de",
-//         storageBucket: "photosharing-c37de.appspot.com",
-//         messagingSenderId: "1065700949630"
-//     };
-//     firebase.initializeApp(config);
-//     // Get a reference to the database service
-//     database = firebase.database();
-//     console.log("database " + database);
-
-//     //var userId = firebase.auth().currentUser.uid;
-// }
