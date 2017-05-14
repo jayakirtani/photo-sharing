@@ -89,9 +89,17 @@ function handleFileSelect(evt) {
         var ititialComments = 0;
         var initialLikes = 0;
         firebase.database().ref('users/' + uid+'/images/').push({
-            image: url,
+            url: url,
             totalcomments:ititialComments,
-            likes:initialLikes
+            likes:initialLikes,
+            timestamp:snapshot.metadata.timeCreated
+        });
+
+        firebase.database().ref('/images/').push({
+            url: url,
+            totalcomments:ititialComments,
+            likes:initialLikes,
+            timestamp:snapshot.metadata.timeCreated
         });
                 var $griditem = $(`<div class="grid-item" id="${uid}">
                 <img src="${url}" />
