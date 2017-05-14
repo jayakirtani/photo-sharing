@@ -3,13 +3,16 @@ var storageRef = firebase.storage().ref();
 
 $(document).ready(function (){
 
+window.onscroll = function () {
+        highlightNav()
+    };
 document.getElementById('image_file').addEventListener('change', handleFileSelect, false);
 document.getElementById('image_file').disabled = true;
 auth.onAuthStateChanged(function(user) {
   if (user) {
     console.log(user);
     document.getElementById('image_file').disabled = false;
-$('#hello').replaceWith("<h2>Hello "+user.displayName +"</h2>")
+$('#hello').replaceWith("<h2>Hello "+user.displayName +"</h2>");
  
 // Arrange Images using masonry layout grid
     $('.grid').isotope({
@@ -21,7 +24,8 @@ $('#hello').replaceWith("<h2>Hello "+user.displayName +"</h2>")
     });
     retrieveImages().then((imageList) => {
         for (var key in imageList) {
-                var userimagedata = imageList[key].image;
+                var userimagedata = imageList[key].url;
+                
                 var likes = imageList[key].likes;
                 var comments = imageList[key].totalcomments;
                 var $griditem = $(`<div class="grid-item" id="${key}">
@@ -51,7 +55,7 @@ $('#hello').replaceWith("<h2>Hello "+user.displayName +"</h2>")
 });
 
 function highlightNav() {
-    if (document.body.scrollTop > 200) {
+    if (document.body.scrollTop > 10) {
         console.log("inside class add");
         $(".navbar").addClass('navbar-fixed-top highlight');
     } else {
@@ -65,14 +69,13 @@ function handleFileSelect(evt) {
       var metadata = {
         'contentType': file.type
       };
-      // Push to child path.
-      // [START oncomplete]
+
       storageRef.child('images/' + file.name).put(file, metadata).then(function(snapshot) {
         console.log('Uploaded', snapshot.totalBytes, 'bytes.');
         console.log(snapshot.metadata);
         var url = snapshot.metadata.downloadURLs[0];
         console.log('File available at', url);
-        // [START_EXCLUDE]
+  
         document.getElementById('linkbox').innerHTML = '<a href="' +  url + '">Click For File</a>';
         var database = firebase.database();
         var uid = firebase.auth().currentUser.uid;
@@ -107,15 +110,10 @@ function handleFileSelect(evt) {
                         $('.grid').isotope('layout');
               });
 
-
         console.log(uid);
-
-        // [END_EXCLUDE]
       }).catch(function(error) {
-        // [START onfailure]
         console.error('Upload failed:', error);
-        // [END onfailure]
       });
-      // [END oncomplete]
+      
     }
 	
