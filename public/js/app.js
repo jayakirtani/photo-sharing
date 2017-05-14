@@ -1,4 +1,3 @@
- var AUTH =null;
  (function(){
 
  //firebase configuration 
@@ -17,22 +16,14 @@ const btnLogout = document.getElementById('btnLogout');
 
 
 //login button eventlistner
-btnLogin.addEventListener('click',e=>{
+btnLogin.addEventListener('click', e=>{
 
     var provider = new firebase.auth.GoogleAuthProvider();
     provider.addScope('profile');
     provider.addScope('email');
  
    const promise = firebase.auth().signInWithPopup(provider);
-   promise.then((authData)=>{
-    console.log(authData);
-    var database = firebase.database();
-    var uid = firebase.auth().currentUser.uid;
-    firebase.database().ref('users/' + uid).set({
-    username: authData.user.displayName,
-    email: authData.user.email,
-  });
-    AUTH = firebase.auth();
+   promise.then((authData)=>{  
     window.location ="user.html";
    });
    
@@ -40,20 +31,18 @@ btnLogin.addEventListener('click',e=>{
 });
 
 //logout button eventlistner
-btnLogout.addEventListener('click',e=>{
-
+btnLogout.addEventListener('click', e=>{
     firebase.auth().signOut();
     window.location.replace("http://localhost:5000/");
 });
 
 //monitor the authentication state chnanges
 firebase.auth().onAuthStateChanged(firebaseUser=> { 
+          var uid = firebase.auth().currentUser.uid;
           
           if(firebaseUser)
           {
-              AUTH = firebaseUser;
-
-              console.log(AUTH);
+              checkIfUserExists(uid,firebaseUser);
               btnLogin.classList.add('hide');
               btnLogout.classList.remove('hide');  
           }
@@ -66,6 +55,30 @@ firebase.auth().onAuthStateChanged(firebaseUser=> {
 });
 
  }());
+
+
+//if user is not there in database, create a new user on callback
+ function userExistsCallback(userId, exists,firebaseUser) {
+  if (exists) {
+      console.log("user exists");
+  } else {
+      console.log("user does not exist");
+    firebase.database().ref('users/' + userId).set({
+    username: firebaseUser.displayName,
+    email: firebaseUser.email,
+  });
+  }
+}
+
+//check if user is already there in database
+function checkIfUserExists(userId,firebaseUser) {
+  var ref = firebase.database().ref("users/"+userId);
+ref.once("value")
+  .then(function(snapshot) {
+    var a = snapshot.exists();  
+    userExistsCallback(userId, a,firebaseUser);
+  });
+}
 
 
  
