@@ -1,6 +1,6 @@
 $(document).ready(function () {
     //Connect to Firebase Database
-    connectDB();
+    //connectDB();
 
     var batchSize= 8;
 

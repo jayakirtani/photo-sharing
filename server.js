@@ -14,6 +14,10 @@ app.get('/', function (req, res) {
     res.sendFile('index.html');
 });
 
+app.get('/user', function (req, res) {
+    res.sendFile('user.html', { root: __dirname+'/public/html' });
+});
+
 app.listen(app.get('port'), function () {
     console.log('Photo Sharing Application is running on port', app.get('port'));
 });

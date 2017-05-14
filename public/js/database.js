@@ -3,15 +3,16 @@ var lastImageTimestamp = 0;
 
 // Returns a Promise which whne resolved returns a JSON with all images
 function fetchImages() {
-    return database.ref('/images').once('value').then(function (imageList) {
+    
+    return firebase.ref('/images').once('value').then(function (imageList) {
+        console.log(imageList.val());
         return Promise.resolve(imageList.val());
     });
 }
 
-
 function fetchFirstImageBatch(batchsize) {
     return new Promise(function (fulfill, reject) {
-        database.ref('images').orderByChild('timestamp').limitToFirst(batchsize).on('value', function (list) {
+        firebase.database().ref('images').orderByChild('timestamp').limitToFirst(batchsize).on('value', function (list) {
             console.log("First Batch");
             //console.log(list.val()); // JSON with all image data
             //console.log(list.key); //images
@@ -33,7 +34,7 @@ function fetchFirstImageBatch(batchsize) {
 
 function fetchNextImageBatch(batchsize) {
     return new Promise(function (fulfill, reject) {
-        database.ref('images').orderByChild('timestamp').startAt(lastImageTimestamp).limitToFirst(batchsize).on('value', function (imageList) {
+        firebase.database().ref('images').orderByChild('timestamp').startAt(lastImageTimestamp).limitToFirst(batchsize).on('value', function (imageList) {
             console.log("Next Batch");
             var orderedData=[];
             imageList.forEach(function (child) {
@@ -49,20 +50,20 @@ function fetchNextImageBatch(batchsize) {
     });
 }
 
-function connectDB() {
-    // Initialize Firebase
-    var config = {
-        apiKey: "AIzaSyBiyoO98d-j8nRV3Bmh1ZAdI-hsLjpif8o",
-        authDomain: "photosharing-c37de.firebaseapp.com",
-        databaseURL: "https://photosharing-c37de.firebaseio.com",
-        projectId: "photosharing-c37de",
-        storageBucket: "photosharing-c37de.appspot.com",
-        messagingSenderId: "1065700949630"
-    };
-    firebase.initializeApp(config);
-    // Get a reference to the database service
-    database = firebase.database();
-    console.log("database " + database);
+// function connectDB() {
+//     // Initialize Firebase
+//     var config = {
+//         apiKey: "AIzaSyBiyoO98d-j8nRV3Bmh1ZAdI-hsLjpif8o",
+//         authDomain: "photosharing-c37de.firebaseapp.com",
+//         databaseURL: "https://photosharing-c37de.firebaseio.com",
+//         projectId: "photosharing-c37de",
+//         storageBucket: "photosharing-c37de.appspot.com",
+//         messagingSenderId: "1065700949630"
+//     };
+//     firebase.initializeApp(config);
+//     // Get a reference to the database service
+//     database = firebase.database();
+//     console.log("database " + database);
 
-    //var userId = firebase.auth().currentUser.uid;
-}
+//     //var userId = firebase.auth().currentUser.uid;
+// }
