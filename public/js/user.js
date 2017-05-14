@@ -10,6 +10,43 @@ auth.onAuthStateChanged(function(user) {
     console.log(user);
     document.getElementById('image_file').disabled = false;
 $('#hello').replaceWith("<h2>Hello "+user.displayName +"</h2>")
+ 
+   
+
+// Arrange Images using masonry layout grid
+    $('.grid').isotope({
+        itemSelector: '.grid-item',
+        //layoutMode: 'fitRows'
+        //layoutMode: 'masonry',
+        percentPosition: true,
+        columnWidth: '.grid-sizer',
+    });
+
+    retrieveImages().then((imageList) => {
+		console.log("inside ");
+		
+        for (var key in imageList) {
+			
+                var userimagedata = imageList[key].image;
+				console.log(userimagedata);
+                var $griditem = $(`<div class="grid-item" id="${key}">
+                <img src="${userimagedata}" />
+                <div id="userimageinfo">
+                <span>${userimagedata.totalcomments} Comments</span>
+                <span>${userimagedata.likes} Likes</span>
+                </div>
+            </div>`)
+            console.log($griditem);
+            // Add images to the image grid
+            $('.grid').prepend($griditem).isotope('prepended', $griditem);
+        }
+
+        // Rearrange the layout once all images have loaded
+        $('.grid').imagesLoaded(function () {
+            console.log("all images loaded")
+            $('.grid').isotope('layout');
+        });
+    });
 
   } else {
     // No user is signed in.
@@ -21,6 +58,14 @@ $('#hello').replaceWith("<h2>Hello "+user.displayName +"</h2>")
 
 });
 
+function highlightNav() {
+    if (document.body.scrollTop > 200) {
+        console.log("inside class add");
+        $(".navbar").addClass('navbar-fixed-top highlight');
+    } else {
+        $(".navbar").removeClass('navbar-fixed-top highlight');
+    }
+}
 function handleFileSelect(evt) {
       evt.stopPropagation();
       evt.preventDefault();
@@ -38,6 +83,7 @@ function handleFileSelect(evt) {
         // [START_EXCLUDE]
         document.getElementById('linkbox').innerHTML = '<a href="' +  url + '">Click For File</a>';
 
+
         var database = firebase.database();
         var uid = firebase.auth().currentUser.uid;
         firebase.database().ref('users/' + uid+'/images/').push({
@@ -53,3 +99,4 @@ function handleFileSelect(evt) {
       });
       // [END oncomplete]
     }
+	
