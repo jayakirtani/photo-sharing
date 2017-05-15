@@ -1,6 +1,12 @@
 $(document).ready(function () {
     //Connect to Firebase Database
     //connectDB();
+const btnLogin = document.getElementById('btnSignUp');
+const btnLogout = document.getElementById('btnLogout');
+const btnUser = document.getElementById('btnUser');
+
+btnLogout.classList.add('hide');
+btnUser.classList.add('hide');
 
     var batchSize= 8;
 
@@ -42,6 +48,35 @@ $(document).ready(function () {
         //     }
         // }
     });
+
+    btnUser.addEventListener('click', e=>{
+
+    window.location ="user.html";
+   
+});
+
+//logout button eventlistner
+btnLogout.addEventListener('click', e=>{
+    firebase.auth().signOut();
+    window.location ="index.html";
+});
+
+firebase.auth().onAuthStateChanged(firebaseUser=> { 
+          var uid = firebase.auth().currentUser.uid;
+          
+          if(firebaseUser)
+          {
+              btnLogin.classList.add('hide');
+              btnLogout.classList.remove('hide'); 
+              btnUser.classList.remove('hide'); 
+          }
+          else
+          {
+              console.log("Not logged In");
+              btnLogin.classList.remove('hide');
+              btnLogout.classList.add('hide');
+          }
+});
 
 
 });
