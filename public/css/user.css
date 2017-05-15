@@ -28,6 +28,12 @@ header {
     /*font-weight: bold;*/
 }
 
+.labelfile {
+     color: white;
+     padding-top:12px;
+     padding-right:50px
+}
+
 
 /*.navbar-nav li a:visited {
     color: green;
@@ -96,4 +102,6 @@ span.empty {
     display: inline-block;
     width: 20%;
 }
+
+
 

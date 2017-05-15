@@ -62,6 +62,7 @@ function highlightNav() {
         $(".navbar").removeClass('navbar-fixed-top highlight');
     }
 }
+
 function handleFileSelect(evt) {
       evt.stopPropagation();
       evt.preventDefault();
@@ -69,14 +70,14 @@ function handleFileSelect(evt) {
       var metadata = {
         'contentType': file.type
       };
-
+      document.getElementById('image_file').disabled = true;
       storageRef.child('images/' + file.name).put(file, metadata).then(function(snapshot) {
         console.log('Uploaded', snapshot.totalBytes, 'bytes.');
         console.log(snapshot.metadata);
         var url = snapshot.metadata.downloadURLs[0];
         console.log('File available at', url);
   
-        document.getElementById('linkbox').innerHTML = '<a href="' +  url + '">Click For File</a>';
+       // document.getElementById('linkbox').innerHTML = '<a href="' +  url + '">Click For File</a>';
         var database = firebase.database();
         var uid = firebase.auth().currentUser.uid;
         var ititialComments = 0;
@@ -109,7 +110,7 @@ function handleFileSelect(evt) {
                         console.log("all images loaded")
                         $('.grid').isotope('layout');
               });
-
+              document.getElementById('image_file').disabled = false;
         console.log(uid);
       }).catch(function(error) {
         console.error('Upload failed:', error);
