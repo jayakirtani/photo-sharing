@@ -79,8 +79,8 @@ function showImages(ignorefirst, imageList) {
                 <span><i class="fa fa-heart">${data.likes}  </i> </span>
                 </div>
                 <section class="comments-section">
-                    <span>${data.likes} </span><span class="fa fa-heart"></span>
-                    <span>${commentKeys.length} </span><span class="fa fa-comments"></span>
+                    <span class="likes-count">${data.likes} </span><span onclick="addLike('${key}', this)" class="fa fa-heart"></span>
+                    <span class="comments-count">${commentKeys.length} </span><span class="fa fa-comments"></span>
                     <div class="form-group">
                         <label for="comment">Comment:</label>
                         <textarea class="form-control" rows="5" id="comment${key}" data-unique="i${key}"></textarea>
@@ -124,7 +124,7 @@ function highlightNav() {
 function addComment(imageId, elem) {
 	var commentRef = firebase.database().ref('/images/' + imageId).child("comments");
 	var newPostRef = commentRef.push();
-    console.log("Comment adeed-", $("input[data-unique='i"+ imageId +"']").val());
+    console.log("Comment adeed-", $("input[data-unique='i"+ imageId +"']")[1].value);
     var newComment = {
         text : $("textarea[data-unique='i"+ imageId +"']")[1].value,
         username : firebase.auth().currentUser.displayName,
@@ -136,4 +136,11 @@ function addComment(imageId, elem) {
             <span class="username">${newComment.username}</span> says -
             <span class="content">${newComment.text}</span></li>`)[0].outerHTML;
     $(".comments-list").prepend($(commentStr));
+    //Update count on UI.
+}
+
+function addLike(imageId, elem) {
+    var likeCount = parseInt($(elem).siblings('span.likes-count').text().trim()) + 1;
+    firebase.database().ref('/images/' + imageId).update({likes : likeCount});
+    $(elem).siblings('span.likes-count').text(likeCount);
 }
