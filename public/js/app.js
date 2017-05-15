@@ -33,7 +33,7 @@ btnLogin.addEventListener('click', e=>{
 //logout button eventlistner
 btnLogout.addEventListener('click', e=>{
     firebase.auth().signOut();
-    window.location.replace("http://localhost:5000/");
+    window.location ="index.html";
 });
 
 //monitor the authentication state chnanges
