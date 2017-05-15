@@ -1,6 +1,6 @@
 var auth = firebase.auth();
 var storageRef = firebase.storage().ref();
-
+$body = $("body");
 $(document).ready(function (){
 
 window.onscroll = function () {
@@ -8,6 +8,7 @@ window.onscroll = function () {
     };
 document.getElementById('image_file').addEventListener('change', handleFileSelect, false);
 document.getElementById('image_file').disabled = true;
+
 auth.onAuthStateChanged(function(user) {
   if (user) {
     console.log(user);
@@ -70,8 +71,10 @@ function handleFileSelect(evt) {
       var metadata = {
         'contentType': file.type
       };
+
+      $body.addClass("loading");
       document.getElementById('image_file').disabled = true;
-      storageRef.child('images/' + file.name).put(file, metadata).then(function(snapshot) {
+      storageRef.child('images/' + generateUUID()+file.name).put(file, metadata).then(function(snapshot) {
         console.log('Uploaded', snapshot.totalBytes, 'bytes.');
         console.log(snapshot.metadata);
         var url = snapshot.metadata.downloadURLs[0];
@@ -95,6 +98,8 @@ function handleFileSelect(evt) {
             likes:initialLikes,
             timestamp:-Date.now()
         });
+
+        $body.removeClass("loading");
                 var $griditem = $(`<div class="grid-item" id="${uid}">
                 <img src="${url}" />
                 <div id="userimageinfo">
@@ -117,4 +122,18 @@ function handleFileSelect(evt) {
       });
       
     }
+
+//Generate high quality UUID's for giving images a unique name
+  function generateUUID() {
+    var d = new Date().getTime();
+    if(window.performance && typeof window.performance.now === "function"){
+        d += performance.now();; //use high-precision timer if available
+    }
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = (d + Math.random()*16)%16 | 0;
+        d = Math.floor(d/16);
+        return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+    });
+    return uuid;
+};
 	
