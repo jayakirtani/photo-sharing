@@ -109,9 +109,9 @@ function showImages(ignorefirst, imageList) {
                 <div id="inner-${key}" class="inner-grid-content">
                 <img class="img-responsive" src="${data.url}" />
                 <div id="imageinfo" class="likes">
-                <span><i class="fa fa-comments">${commentKeys.length}</i></span>
+                <span><i class="comments-count fa fa-comments">${commentKeys.length}</i></span>
                 <span class="empty"></span>
-                <span><i class="fa fa-heart">${data.likes}  </i> </span>
+                <span><i class="likes-count fa fa-heart">${data.likes}  </i> </span>
                 </div>
                 <section class="comments-section">
                     <span class="likes-count">${data.likes} </span><span onclick="addLike('${key}', this)" class="fa fa-heart"></span>
@@ -123,8 +123,8 @@ function showImages(ignorefirst, imageList) {
 
                     <button class="btn btn-primary" onclick="addComment('${key}', this)">Submit</button>
                     <ul class="comments-list">${commentsListStr}</ul>
-                </section></div>
-                          </div>`)
+                </section>
+                </div></div>`);
             //console.log($griditem);
             // Add images to the image grid
             $('.grid').append($griditem).isotope('appended', $griditem).isotope('layout');
@@ -159,7 +159,7 @@ function highlightNav() {
 function addComment(imageId, elem) {
 	var commentRef = firebase.database().ref('/images/' + imageId).child("comments");
 	var newPostRef = commentRef.push();
-    console.log("Comment adeed-", $("input[data-unique='i"+ imageId +"']")[1].value);
+    console.log("Comment adeed-", $("textarea[data-unique='i"+ imageId +"']")[1].value);
     var newComment = {
         text : $("textarea[data-unique='i"+ imageId +"']")[1].value,
         username : firebase.auth().currentUser.displayName,
@@ -171,11 +171,18 @@ function addComment(imageId, elem) {
             <span class="username">${newComment.username}</span> says -
             <span class="content">${newComment.text}</span></li>`)[0].outerHTML;
     $(".comments-list").prepend($(commentStr));
-    //Update count on UI.
+    //Update count on UI - popup.
+    var commentCount = $(elem).siblings('span.comments-count');
+    var newCount = parseInt(commentCount.text().trim()) + 1
+     commentCount.text(newCount);
+     //Update on homepage too.
+     $("#" + imageId).find(".comments-count").eq(0).text(newCount);
 }
 
 function addLike(imageId, elem) {
     var likeCount = parseInt($(elem).siblings('span.likes-count').text().trim()) + 1;
     firebase.database().ref('/images/' + imageId).update({likes : likeCount});
     $(elem).siblings('span.likes-count').text(likeCount);
+    //Update on homepage too.
+     $("#" + imageId).find(".likes-count").eq(0).text(likeCount);
 }
