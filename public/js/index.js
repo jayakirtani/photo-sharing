@@ -52,7 +52,7 @@ function showImages(ignorefirst, imageList) {
     for (var i = 0; i < imageList.length; i++) {
         if (!ignorefirst) {
             var imagedata = imageList[i];
-            console.log("Appending Image " + JSON.stringify(imagedata));
+            //console.log("Appending Image " + JSON.stringify(imagedata));
             var key = Object.keys(imagedata);
             var data = imagedata[key];
             var $griditem = $(`<div class="grid-item" data-featherlight="#inner-${key}-${i}" id="${key}">
@@ -97,7 +97,7 @@ function showImages(ignorefirst, imageList) {
 
     // Rearrange the layout once all images have loaded
     $('.grid').imagesLoaded().progress(function () {
-        console.log("all images loaded")
+        //console.log("all images loaded")
         $('.grid').isotope('layout');
             $('.grid-item').featherlightGallery({
                 previousIcon: '«',
@@ -109,7 +109,7 @@ function showImages(ignorefirst, imageList) {
 
 function highlightNav() {
     if (document.body.scrollTop > 200) {
-        console.log("inside class add");
+        //console.log("inside class add");
         $(".navbar").addClass('navbar-fixed-top highlight');
     } else {
         $(".navbar").removeClass('navbar-fixed-top highlight');
