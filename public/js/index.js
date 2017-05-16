@@ -8,7 +8,7 @@ const btnUser = document.getElementById('btnUser');
 btnLogout.classList.add('hide');
 btnUser.classList.add('hide');
 
-    var batchSize= 8;
+    var batchSize= 25;
 
     window.onscroll = function () {
         highlightNav()

@@ -11,6 +11,10 @@ header {
     height: 200px;
 }
 
+#logoimage{
+    width:20px;
+    display:inline;
+}
 .navbar-nav {
      background-color: brown;
     width: 100%;

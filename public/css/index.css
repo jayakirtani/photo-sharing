@@ -25,6 +25,11 @@ header {
     font-weight: bold;
 }
 
+#logoimage{
+    width:20px;
+    display:inline;
+}
+
 .container .row {
     height: 200px;
 }
@@ -33,6 +38,7 @@ header {
     width: 100%;
     text-align: center;
 }
+
 
 .navbar-nav li {
     float: none;
@@ -170,4 +176,8 @@ span.empty {
 
 .featherlight-previous span, .featherlight-next span {
     color: black;
+}
+
+#about{
+    color:brown;
 }
