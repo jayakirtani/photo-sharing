@@ -281,15 +281,15 @@ var commentRef = firebase.database().ref('/users/' + uid+'/images/' + imageId).c
             <span class="content">${newComment.text}</span></li>`)[0].outerHTML;
     $(".comments-list").prepend($(commentStr));
     //Update count on UI - popup.
-    var commentCount = $(elem).siblings('span.comments-count');
-    var newCount = parseInt(commentCount.text().trim()) + 1
+    var commentCount = $(elem).parent().siblings('span.comments-count');
+    var newCount = (parseInt(commentCount.text()) || 0) + 1
      commentCount.text(newCount);
      //Update on homepage too.
      $("#" + imageId).find(".comments-count").eq(0).text(newCount);
 }
 
 function addUserLike(imageId, elem) {
-    var likeCount = parseInt($(elem).siblings('span.likes-count').text().trim()) + 1;
+    var likeCount = (parseInt($(elem).siblings('span.likes-count').text()) || 0) + 1;
     firebase.database().ref('/images/' + imageId).update({likes : likeCount});
     $(elem).siblings('span.likes-count').text(likeCount);
     //Update on homepage too.
@@ -299,8 +299,8 @@ function addUserLike(imageId, elem) {
 }
 
 function updateLikesInUser(imageId,elem)
-{ 
+{
   var uid = firebase.auth().currentUser.uid;
-  var likeCount = parseInt($(elem).siblings('span.likes-count').text().trim());
+  var likeCount = parseInt($(elem).siblings('span.likes-count').text());
   firebase.database().ref('/users/' + uid+'/images/' + imageId).update({likes : likeCount}); 
 }
