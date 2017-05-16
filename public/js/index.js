@@ -63,15 +63,17 @@ btnLogout.addEventListener('click', e=>{
 
 firebase.auth().onAuthStateChanged(firebaseUser=> { 
           var uid = firebase.auth().currentUser.uid;
-          
+          var commentForms = $(".comment-form");
           if(firebaseUser)
           {
+              commentForms.hide();
               btnLogin.classList.add('hide');
               btnLogout.classList.remove('hide'); 
               btnUser.classList.remove('hide'); 
           }
           else
           {
+              commentForms.show();
               console.log("Not logged In");
               btnLogin.classList.remove('hide');
               btnLogout.classList.add('hide');
@@ -83,6 +85,13 @@ firebase.auth().onAuthStateChanged(firebaseUser=> {
 
 
 function showImages(ignorefirst, imageList) {
+
+    var hideClass = 'hide';
+    var currentUser = firebase.auth().currentUser;
+    //Comment section show hide. If user logged in then show it, else keep it hidden.
+    if (currentUser) {
+        hideClass = '';
+    }
 
     for (var i = 0; i < imageList.length; i++) {
         if (!ignorefirst) {
@@ -116,12 +125,13 @@ function showImages(ignorefirst, imageList) {
                 <section class="comments-section">
                     <span class="likes-count">${data.likes} </span><span onclick="addLike('${key}', this)" class="fa fa-heart"></span>
                     <span class="comments-count">${commentKeys.length} </span><span class="fa fa-comments"></span>
-                    <div class="form-group">
-                        <label for="comment">Comment:</label>
-                        <textarea class="form-control" rows="5" id="comment${key}" data-unique="i${key}"></textarea>
+                    <div class="comment-form ${hideClass}">
+                        <div class="form-group">
+                            <label for="comment">Comment:</label>
+                            <textarea class="form-control" rows="5" id="comment${key}" data-unique="i${key}"></textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="addComment('${key}', this)">Submit</button>
                     </div>
-
-                    <button class="btn btn-primary" onclick="addComment('${key}', this)">Submit</button>
                     <ul class="comments-list">${commentsListStr}</ul>
                 </section>
                 </div></div>`);

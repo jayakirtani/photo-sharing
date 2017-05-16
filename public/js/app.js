@@ -39,15 +39,17 @@ btnLogout.addEventListener('click', e=>{
 //monitor the authentication state chnanges
 firebase.auth().onAuthStateChanged(firebaseUser=> { 
           var uid = firebase.auth().currentUser.uid;
-          
+          var commentForms = $(".comment-form");
           if(firebaseUser)
           {
               checkIfUserExists(uid,firebaseUser);
+              commentForms.show();
               btnLogin.classList.add('hide');
               btnLogout.classList.remove('hide');  
           }
           else
           {
+              commentForms.hide();
               console.log("Not logged In");
               btnLogin.classList.remove('hide');
               btnLogout.classList.add('hide');

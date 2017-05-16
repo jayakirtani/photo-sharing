@@ -176,7 +176,14 @@ function handleFileSelect(evt) {
 	
 
 function showUserImages(ignorefirst, imageList) {
-
+    
+    var hideClass = 'hide';
+    var currentUser = firebase.auth().currentUser;
+    //Comment section show hide. If user logged in then show it, else keep it hidden.
+    if (currentUser) {
+        hideClass = '';
+    }
+    
     for (var i = 0; i < imageList.length; i++) {
         if (!ignorefirst) {
             var imagedata = imageList[i];
@@ -209,12 +216,13 @@ function showUserImages(ignorefirst, imageList) {
                 <section class="comments-section">
                     <span class="likes-count">${data.likes} </span><span onclick="addUserLike('${key}', this)" class="fa fa-heart"></span>
                     <span class="comments-count">${commentKeys.length} </span><span class="fa fa-comments"></span>
-                    <div class="form-group">
-                        <label for="comment">Comment:</label>
-                        <textarea class="form-control" rows="5" id="comment${key}" data-unique="i${key}"></textarea>
-                    </div>
-
+                    <div class="comment-form ${hideClass}">
+                        <div class="form-group">
+                            <label for="comment">Comment:</label>
+                            <textarea class="form-control" rows="5" id="comment${key}" data-unique="i${key}"></textarea>
+                        </div>
                     <button class="btn btn-primary" onclick="addUserComment('${key}', this)">Submit</button>
+                    </div>
                     <ul class="comments-list">${commentsListStr}</ul>
                 </section>
                 </div></div>`);
