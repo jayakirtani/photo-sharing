@@ -15,21 +15,23 @@ header {
     width:20px;
     display:inline;
 }
-.navbar-nav {
-     background-color: brown;
-    width: 100%;
-    text-align: center;
-}
 
-.navbar-nav li {
-     
-    float: none;
-    display: inline-block;
-}
+.navbar {
+     background-color: brown;}
 
-.navbar-nav li a {
+.navbar a{
     color: white;
-    /*font-weight: bold;*/
+}
+.navbar-toggle .icon-bar {
+    background-color:  white;
+}
+
+@media (min-width: 768px) {
+ .navbar-nav.navbar-center {
+   position: absolute;
+   left: 50%;
+   transform: translatex(-50%);
+  }
 }
 
 .labelfile {

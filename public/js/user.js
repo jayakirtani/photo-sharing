@@ -87,7 +87,7 @@ $('#hello').replaceWith("<h2>Hello "+user.displayName +"</h2>");
 });
 
 function highlightNav() {
-    if (document.body.scrollTop > 10) {
+    if (document.body.scrollTop > 0) {
         console.log("inside class add");
         $(".navbar").addClass('navbar-fixed-top highlight');
     } else {

@@ -34,24 +34,23 @@ header {
     height: 200px;
 }
 
-.navbar-nav {
-    width: 100%;
-    text-align: center;
-}
-
-
-.navbar-nav li {
-    float: none;
-    display: inline-block;
-}
-
-.navbar-nav li a {
+.navbar a{
     color: brown;
-    /*font-weight: bold;*/
+}
+.navbar-toggle .icon-bar {
+    background-color:  brown;
+}
+
+@media (min-width: 768px) {
+ .navbar-nav.navbar-center {
+   position: absolute;
+   left: 50%;
+   transform: translatex(-50%);
+  }
 }
 
 
-/*.navbar-nav li a:visited {
+/*.navbar-nav li a:hover {
     color: green;
 }*/
 
@@ -59,26 +58,18 @@ header {
     background-color: brown;
 }
 
-.highlight li a {
+.highlight  a {
     color: white;
 }
 
-.row.limit {}
+.highlight .navbar-toggle .icon-bar {
+    background-color:  white;
+}
+
 
 .grid {
     background: white;
 }
-
-
-/*
- clear fix .grid:after {
-     content: '';
-     display: block;
-     clear: both;
- }*/
-
-
-/* ---- .grid-item ---- */
 
 .grid-sizer,
 .grid-item {
