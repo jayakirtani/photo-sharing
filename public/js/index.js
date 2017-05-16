@@ -195,7 +195,7 @@ var commentRef = firebase.database().ref('/users/' + uid+'/images/' + imageId).c
     var commentStr = $(`<li>
             <span class="username">${newComment.username}</span> says -
             <span class="content">${newComment.text}</span></li>`)[0].outerHTML;
-    $(".comments-list").prepend($(commentStr));
+    $(elem).parent().siblings(".comments-list").prepend($(commentStr));
     //Update count on UI - popup.
     var commentCount = $(elem).parent().siblings('span.comments-count');
     var newCount = (parseInt(commentCount.text()) || 0) + 1
