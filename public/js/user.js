@@ -291,8 +291,8 @@ function addUserLike(imageId, elem) {
 }
 
 function updateLikesInUser(imageId,elem)
-{
+{ 
   var uid = firebase.auth().currentUser.uid;
   var likeCount = parseInt($(elem).siblings('span.likes-count').text().trim());
-  var commentRef = firebase.database().ref('/users/' + uid+'/images/' + imageId).update({likes : likeCount}); 
+  firebase.database().ref('/users/' + uid+'/images/' + imageId).update({likes : likeCount}); 
 }
